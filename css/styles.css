@@ -1,0 +1,124 @@
+body {
+    background-color: #667eea;
+}
+#container {
+  display: flex;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+#post-list {
+  flex: 1;
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+#post-detail img {
+  width: 150px;       /* or 100px if you want it even smaller */
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+.post-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px; /* spacing between image and text */
+  margin-bottom: 20px;
+}
+
+.post-image {
+  width: 150px;
+  height: auto;
+  border-radius: 5px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.post-text {
+  flex: 1;
+}
+
+
+
+
+.post-title {
+  cursor: pointer;
+  margin-bottom: 5px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.post-title:hover {
+  background-color: #eef;
+}
+form {
+  margin-top: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #3b3ccd;
+}
+
+.hidden {
+  display: none;
+}
+#post-detail button {
+  margin-right: 10px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#edit-btn {
+  background-color: #10b981; /* green */
+  color: gold;
+}
+
+#edit-btn:hover {
+  background-color: #059669;
+}
+
+#delete-btn {
+  background-color: #ef4444; /* red */
+  color: red;
+}
+
+#delete-btn:hover {
+  background-color: #dc2626;
+}
+h1 {
+    text-align: center;
+}

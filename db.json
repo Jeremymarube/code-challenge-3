@@ -1,0 +1,18 @@
+{
+  "posts": [
+    {
+      "title": "Cyber security",
+      "content": "This is a technical course",
+      "author": "Job",
+      "image": "https://cdn.pixabay.com/photo/2018/10/05/07/54/binary-3725325_960_720.jpg",
+      "id": 1
+    },
+    {
+      "title": "fr",
+      "content": "hgvjhj,dhm",
+      "author": "jay",
+      "image": "",
+      "id": 2
+    }
+  ]
+}
