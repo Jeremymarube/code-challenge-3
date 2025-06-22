@@ -1,25 +1,29 @@
-//Adding interactivity
+document.addEventListener("DOMContentLoaded", main);
 
 const BASE_URL = "http://localhost:3000/posts";
-let currentPostId = null;
+
+function main() {
+  displayPosts();
+  addNewPostListener();
+}
 
 function displayPosts() {
   fetch(BASE_URL)
     .then(res => res.json())
     .then(posts => {
-      const list = document.getElementById("post-list");
-      list.innerHTML = '';
+      const postList = document.getElementById("post-list");
+      postList.innerHTML = "";
       posts.forEach(post => {
-       const li = document.createElement("li");
-       li.textContent = post.title;
-       li.className = "post-title";
-       li.addEventListener("click", () => handlePostClick(post.id));
-       list.appendChild(li);
- 
+        const div = document.createElement("div");
+        div.textContent = post.title;
+        div.style.cursor = "pointer";
+        div.addEventListener("click", () => handlePostClick(post.id));
+        postList.appendChild(div);
       });
 
-      if (posts.length > 0) {
-        handlePostClick(posts[0].id); // Advanced: Show first post on load
+      // Display first post by default (advanced)
+      if (posts.length) {
+        handlePostClick(posts[0].id);
       }
     });
 }
@@ -28,38 +32,32 @@ function handlePostClick(id) {
   fetch(`${BASE_URL}/${id}`)
     .then(res => res.json())
     .then(post => {
-      currentPostId = post.id;
       const detail = document.getElementById("post-detail");
       detail.innerHTML = `
         <h2>${post.title}</h2>
-        <p><strong>Author:</strong> ${post.author}</p>
-        <img src="${post.image || 'https://via.placeholder.com/150'}" alt="${post.title}" style="max-width: 100%; height: auto; margin-bottom: 15px;" />
+        <p><em>By ${post.author} • ${post.date || "Unknown date"}</em></p>
+        <img src="${post.image}" alt="post image" style="width:100%; max-height:200px; object-fit:cover;" />
         <p>${post.content}</p>
         <button id="edit-btn">Edit</button>
         <button id="delete-btn">Delete</button>
       `;
 
-      document.getElementById("edit-btn").addEventListener("click", () => {
-        const form = document.getElementById("edit-post-form");
-        form.classList.remove("hidden");
-        document.getElementById("edit-title").value = post.title;
-        document.getElementById("edit-content").value = post.content;
-      });
-
-      document.getElementById("delete-btn").addEventListener("click", () => {
-        deletePost(post.id);
-      });
+      document.getElementById("edit-btn").addEventListener("click", () => showEditForm(post));
+      document.getElementById("delete-btn").addEventListener("click", () => deletePost(post.id));
     });
 }
+
 function addNewPostListener() {
   const form = document.getElementById("new-post-form");
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", e => {
     e.preventDefault();
+
     const newPost = {
-      title: document.getElementById("title").value,
-      content: document.getElementById("content").value,
-      author: document.getElementById("author").value,
-      image: document.getElementById("image").value 
+      title: form.title.value,
+      author: form.author.value,
+      image: form.image.value,
+      content: form.content.value,
+      date: new Date().toISOString().split("T")[0]
     };
 
     fetch(BASE_URL, {
@@ -68,63 +66,54 @@ function addNewPostListener() {
       body: JSON.stringify(newPost)
     })
     .then(res => res.json())
-    .then(post => {
+    .then(() => {
       form.reset();
-
-      // ✅ Add new post to DOM immediately
-      const list = document.getElementById("post-list");
-      const li = document.createElement("li");
-      li.textContent = post.title;
-      li.className = "post-title";
-      li.addEventListener("click", () => handlePostClick(post.id));
-      list.appendChild(li);
-
-      // ✅ Show new post details right away
-      handlePostClick(post.id);
+      displayPosts();
     });
   });
 }
 
-
-function addEditFormListener() {
+function showEditForm(post) {
   const editForm = document.getElementById("edit-post-form");
-  editForm.addEventListener("submit", (e) => {
+  editForm.classList.remove("hidden");
+  editForm.title.value = post.title;
+  editForm.content.value = post.content;
+
+  editForm.onsubmit = (e) => {
     e.preventDefault();
-    const updatedPost = {
-      title: document.getElementById("edit-title").value,
-      content: document.getElementById("edit-content").value,
-      image: document.getElementById("edit-image").value
+    const updated = {
+      title: editForm.title.value,
+      content: editForm.content.value
     };
 
-    fetch(`${BASE_URL}/${currentPostId}`, {
+    fetch(`${BASE_URL}/${post.id}`, {
       method: "PATCH",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(updatedPost)
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updated)
     })
+    .then(res => res.json())
     .then(() => {
       editForm.classList.add("hidden");
       displayPosts();
-      handlePostClick(currentPostId);
+      handlePostClick(post.id);
     });
-  });
+  };
 
-  document.getElementById("cancel-edit").addEventListener("click", () => {
+  document.getElementById("cancel-edit").onclick = () => {
     editForm.classList.add("hidden");
-  });
+  };
 }
 
 function deletePost(id) {
+    const confirmDelete = confirm("Are you sure you want to delete this post?");
+  if (!confirmDelete) return;
   fetch(`${BASE_URL}/${id}`, { method: "DELETE" })
     .then(() => {
       displayPosts();
-      document.getElementById("post-detail").innerHTML = "<p>Select a post to view its details.</p>";
+      document.getElementById("post-detail").innerHTML = "<p>Select a post to view details.</p>";
     });
 }
 
-function main() {
-  displayPosts();
-  addNewPostListener();
-  addEditFormListener();
-}
+        
+    
 
-document.addEventListener("DOMContentLoaded", main);

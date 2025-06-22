@@ -4,72 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog Post Manager</title>
-  <link rel="stylesheet" href="./css/styles.css" />
-  <script src="src/index.js" defer></script>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <header>
+    <h1>Blog Post Manager</h1>
+    <p>Modern blog post management</p>
+  </header>
 
-  <div class="container">
-    <h1>🚀 Blog Post Manager</h1>
+  <main class="main-container">
+    <section class="sidebar">
+      <h2>Blog Posts<span id="post-count">(0 posts)</span></h2>
+      <div id="post-list"></div>
 
-    <div class="app-container">
-      <!-- Left Panel -->
-      <div class="left-panel">
-        <h2>📝 Posts</h2>
-        <ul id="post-list"></ul>
-      </div>
-
-      <!-- Right Panel -->
-      <div class="right-panel">
-        <h2>📖 Post Details</h2>
-        <div id="post-detail">
-          <div class="post-content"></div>
-          <div class="post-actions">
-            <button class="btn btn-primary">✏ Edit</button>
-            <button class="btn btn-danger">🗑 Delete</button>
-          </div>
-        </div>
-
-        <!-- Edit Form -->
-        <form id="edit-post-form" class="hidden">
-          <h4>Update Post Details</h4>
-          <div class="form-group">
-            <label for="edit-title">Title:</label>
-            <input type="text" name="title" id="edit-title" />
-            <label for="edit-image">Image URL:</label>
-  <input type="text" name="image" id="edit-image" placeholder="Edit image URL" />
-          </div>
-          <div class="form-group">
-            <label for="edit-content">Content:</label>
-            <textarea name="content" id="edit-content" rows="5"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Update Post</button>
-          <button type="button" id="cancel-edit" class="btn btn-secondary">Cancel</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- New Post Form -->
-    <div class="form-container">
-      <h2>➕ Add New Post</h2>
       <form id="new-post-form">
-        <div class="form-group">
-          <label for="title">Title:</label>
-          <input type="text" name="title" id="title" required placeholder="Enter post title..." />
-          <label for="image">Image URL:</label>
-          <input type="text" name="image" id="image" placeholder="Enter image URL" />
+        <h3>+ Add New Post</h3>
+        <input type="text" name="title" placeholder="Post title..." required />
+        <input type="text" name="author" placeholder="Author name..." required />
+        <input type="text" name="image" placeholder="Image URL..." required />
+        <textarea name="content" placeholder="Write your post content..." required></textarea>
+        <div class="form-buttons">
+          <button type="submit" class="add-btn">Create new post</button>
+          <button type="button" class="cancel-btn">Cancel</button>
         </div>
-        <div class="form-group">
-          <label for="content">Content:</label>
-          <textarea name="content" id="content" rows="5" required placeholder="Write your post content here..."></textarea>
-        </div>
-        <div class="form-group">
-          <label for="author">Author:</label>
-          <input type="text" name="author" id="author" required placeholder="Your name..." />
-        </div>
-        <button type="submit" class="btn btn-success">🚀 Add Post</button>
       </form>
-    </div>
-  </div>
+    </section>
+
+    <section id="post-detail" class="post-detail">
+      <!-- Filled dynamically -->
+    </section>
+  </main>
+
+  <form id="edit-post-form" class="hidden edit-form">
+    <h4>Update Post Details</h4>
+    <label for="edit-title">Title:</label>
+    <input type="text" name="title" id="edit-title" />
+    <label for="edit-content">Content:</label>
+    <textarea name="content" id="edit-content" rows="5"></textarea>
+    <button type="submit">Update Post</button>
+    <button type="button" id="cancel-edit">Cancel</button>
+  </form>
+
+  <script src="src/index.js"></script>
 </body>
 </html>
+
