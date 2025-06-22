@@ -5,19 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog Post Manager</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <header>
-    <h1>Blog Post Manager</h1>
+    <h1>🚀Blog Post Manager</h1>
     <p>Modern blog post management</p>
   </header>
 
   <main class="main-container">
     <section class="sidebar">
-      <h2>Blog Posts<span id="post-count">(0 posts)</span></h2>
+      <h2>Blog Posts
+        <span id="post-count">(0 posts)</span></h2>
       <div id="post-list"></div>
-
-      <form id="new-post-form">
+     <button id="toggle-form-btn" class="add-toggle-btn">+ Add New Post</button>
+      <form id="new-post-form" class="hidden">
         <h3>+ Add New Post</h3>
         <input type="text" name="title" placeholder="Post title..." required />
         <input type="text" name="author" placeholder="Author name..." required />
