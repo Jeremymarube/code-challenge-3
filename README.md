@@ -121,6 +121,7 @@ The application uses the following endpoints:
 
 ```
 blog-post-manager/
+├──readme.md            # This file
 ├── index.html          # Main HTML file
 ├── src/
 │   └── index.js        # Main JavaScript logic
