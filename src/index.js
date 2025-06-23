@@ -131,7 +131,7 @@ function toggleAddForm() {
 
   toggleBtn.addEventListener("click", () => {
     form.classList.toggle("hidden");
-    toggleBtn.textContent = form.classList.contains("hidden") ? "+ Add New Post" : "Hide";
+    toggleBtn.textContent = form.classList.contains("hidden") ? "+ Add New Post" : "Add New Post";
   });
 }
 function showEditForm(post) {
@@ -147,7 +147,7 @@ function showEditForm(post) {
       <textarea name="content" id="edit-content" rows="5" required>${post.content}</textarea>
 
       <div style="margin-top: 10px;">
-        <button type="submit" style="background-color:#3b82f6; color:white; padding:10px; border:none; border-radius:6px;">Update</button>
+        <button type="submit" style="background-color:#3b82f6; color:white; padding:10px; border:none; border-radius:6px;">Save Changes</button>
         <button type="button" id="cancel-edit" style="margin-left: 10px; background-color:gray; color:white; padding:10px; border:none; border-radius:6px;">Cancel</button>
       </div>
     </form>
